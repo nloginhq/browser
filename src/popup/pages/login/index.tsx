@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
-import { Button, Dot, Image, Grid, Input, Spacer, Text, Loading, Note } from '@geist-ui/core'
+import { Button, Dot, Image, Grid, Input, Link, Spacer, Text, Loading, Note } from '@geist-ui/core'
 import { Unlock as UnlockIcon } from '@geist-ui/icons'
 import { useNavigate } from 'react-router-dom'
 import { browser } from 'webextension-polyfill-ts'
@@ -67,6 +67,10 @@ export default function Login() {
     }
   }
 
+  const openNewTab = (url: string) => {
+    chrome.tabs.create({ url })
+  }
+
   return (
     <Grid.Container justify="center">
       <Grid xs={24} justify="center" pt={2.5}>
@@ -114,11 +118,27 @@ export default function Login() {
           <Loading />
         </Grid>
       ) : (
-        <Grid xs={24} justify="center">
-          <Button icon={<UnlockIcon />} type="success" width="200px" onClick={login}>
-            Unlock
-          </Button>
-        </Grid>
+        <>
+          <Grid xs={24} justify="center">
+            <Button icon={<UnlockIcon />} type="success" width="200px" onClick={login}>
+              Unlock
+            </Button>
+          </Grid>
+          <Spacer h={0.5} />
+          <Grid xs={24} justify="center">
+            <Link
+              href="https://nlogin.me/register"
+              icon
+              color
+              onClick={(e) => {
+                e.preventDefault()
+                openNewTab('https://nlogin.me/register')
+              }}
+            >
+              <Text small>Register Now</Text>
+            </Link>
+          </Grid>
+        </>
       )}
       <Spacer />
       {loginError !== '' && (
