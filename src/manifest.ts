@@ -2,7 +2,7 @@ import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
   name: 'nlogin.me',
-  description: '',
+  description: 'The password manager that keeps your email secret too.',
   version: '0.0.1',
   manifest_version: 3,
   icons: {
